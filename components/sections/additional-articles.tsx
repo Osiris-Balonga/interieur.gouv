@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
 import { Clock, ArrowRight } from "lucide-react"
 
 interface Article {
@@ -96,113 +98,113 @@ const additionalArticles: Article[] = [
 
 export function AdditionalArticles() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              Toutes nos actualités
-            </h2>
-            <p className="text-gray-600">
-              Restez informé de toutes les activités du ministère
-            </p>
+        <ScrollReveal>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-foreground mb-2">
+                Toutes nos actualités
+              </h2>
+              <p className="text-muted-foreground">
+                Restez informé de toutes les activités du ministère
+              </p>
+            </div>
+            <Button variant="outline" asChild className="hidden sm:flex">
+              <Link href="/actualites">
+                Voir toutes les actualités
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
-          <Button variant="outline" asChild className="hidden sm:flex">
-            <Link href="/actualites">
-              Voir toutes les actualités
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
+        </ScrollReveal>
 
         {/* Grille responsive */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {additionalArticles.map((article) => (
-            <Card key={article.id} className="group overflow-hidden hover:bg-muted/50 transition-colors duration-300">
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={article.image}
-                  alt={article.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-3 left-3">
-                  <Badge variant="secondary" className="bg-white/90 text-gray-900">
-                    {article.category}
-                  </Badge>
-                </div>
-              </div>
-
-              <CardContent className="p-4">
-                <div className="space-y-3">
-                  <h3 className="font-semibold text-gray-900 leading-tight line-clamp-2 group-hover:text-blue-600 transition-colors">
-                    <Link href={`/actualites/${article.id}`}>
-                      {article.title}
-                    </Link>
-                  </h3>
-
-                  <p className="text-sm text-gray-600 line-clamp-3">
-                    {article.excerpt}
-                  </p>
-
-                  <div className="flex items-center justify-between text-xs text-gray-500">
-                    <time dateTime={article.date}>
-                      {new Date(article.date.split(' ').reverse().join('-')).toLocaleDateString('fr-FR', {
-                        day: 'numeric',
-                        month: 'short'
-                      })}
-                    </time>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      <span>{article.readTime}</span>
+          {additionalArticles.map((article, index) => (
+            <ScrollReveal key={article.id} delay={index * 0.1}>
+              <Link href={`/actualites/${article.id}`}>
+                <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer h-full">
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={'/default.webp'}
+                      alt={article.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <Badge className="bg-primary/90 text-primary-foreground">
+                        {article.category}
+                      </Badge>
                     </div>
                   </div>
 
-                  <Link
-                    href={`/actualites/${article.id}`}
-                    className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1 group"
-                  >
-                    Lire l'article
-                    <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
+                  <CardContent className="p-4 flex flex-col flex-1">
+                    <div className="space-y-3 flex-1">
+                      <h3 className="font-semibold text-foreground leading-tight line-clamp-2 group-hover:text-primary transition-colors">
+                        {article.title}
+                      </h3>
+
+                      <p className="text-sm text-muted-foreground line-clamp-3 flex-1">
+                        {article.excerpt}
+                      </p>
+
+                      <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t">
+                        <time dateTime={article.date}>
+                          {new Date(article.date.split(' ').reverse().join('-')).toLocaleDateString('fr-FR', {
+                            day: 'numeric',
+                            month: 'short'
+                          })}
+                        </time>
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          <span>{article.readTime}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </ScrollReveal>
           ))}
         </div>
 
         {/* Bouton mobile */}
-        <div className="mt-8 text-center sm:hidden">
-          <Button asChild className="w-full">
-            <Link href="/actualites">
-              Voir toutes les actualités
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
+        <ScrollReveal>
+          <div className="mt-8 text-center sm:hidden">
+            <Button asChild className="w-full">
+              <Link href="/actualites">
+                Voir toutes les actualités
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </ScrollReveal>
 
         {/* Newsletter */}
-        <div className="mt-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white">
-          <div className="text-center max-w-2xl mx-auto">
-            <h3 className="text-xl font-semibold mb-3">
-              Recevez nos actualités
-            </h3>
-            <p className="text-blue-100 mb-6">
-              Inscrivez-vous à notre newsletter pour recevoir les dernières informations
-              du ministère directement dans votre boîte mail
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Votre adresse email"
-                className="flex-1 px-4 py-2 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
-              />
-              <Button className="bg-white text-blue-600 hover:bg-gray-100">
-                S'inscrire
-              </Button>
+        <ScrollReveal delay={0.3}>
+          <div className="mt-12 bg-gradient-to-r from-primary to-primary/80 rounded-lg p-8 text-primary-foreground">
+            <div className="text-center max-w-2xl mx-auto">
+              <h3 className="text-xl font-semibold mb-3">
+                Recevez nos actualités
+              </h3>
+              <p className="text-primary-foreground/80 mb-6">
+                Inscrivez-vous à notre newsletter pour recevoir les dernières informations
+                du ministère directement dans votre boîte mail
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <Input
+                  type="email"
+                  placeholder="Votre adresse email"
+                  className="flex-1 bg-background text-foreground"
+                />
+                <Button className="bg-background text-primary hover:bg-background/90">
+                  S'inscrire
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   )
