@@ -13,35 +13,35 @@ interface Article {
   date: string
 }
 
-// Données d'exemple avec vraies images
+// Articles récents du blog
 const articles: Article[] = [
   {
-    id: '1',
-    title: 'Renforcement de la sécurité numérique nationale',
-    excerpt: 'Le ministère de l\'Intérieur présente ses nouvelles mesures pour lutter contre la cybercriminalité et protéger les infrastructures critiques du pays. Un plan d\'action sur 3 ans.',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop',
-    date: '28 octobre 2025'
+    id: 'plan-securite-ministere-2025',
+    title: 'Plan de sécurité renforcé pour 2025',
+    excerpt: 'Le ministère de l\'Intérieur dévoile son nouveau plan de sécurité avec des mesures innovantes pour renforcer la protection des citoyens.',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop&ixlib=rb-4.0.3',
+    date: '20 octobre 2025'
   },
   {
-    id: '2',
+    id: 'installation-nouveau-prefet-police',
     title: 'Installation du nouveau préfet de Police',
-    excerpt: 'Cérémonie officielle d\'installation du nouveau préfet de Police de Brazzaville. Une passation de pouvoir qui marque une nouvelle étape dans la modernisation des forces de l\'ordre.',
-    image: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800&h=600&fit=crop',
+    excerpt: 'Lundi 27 octobre 2025, le ministre de l\'Intérieur, Laurent Nuñez a présidé la cérémonie d\'installation du nouveau préfet de Police, Patrice Faure.',
+    image: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800&h=600&fit=crop&ixlib=rb-4.0.3',
     date: '27 octobre 2025'
   },
   {
-    id: '3',
-    title: 'Formation continue des agents de sécurité',
-    excerpt: 'Lancement d\'un programme de formation continue pour améliorer les compétences des agents de sécurité et moderniser leurs méthodes d\'intervention.',
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
-    date: '25 octobre 2025'
+    id: 'violences-conjugales-statistiques-2024',
+    title: 'Violences conjugales enregistrées par les services de sécurité',
+    excerpt: 'En 2024, les services de sécurité ont enregistré 272 400 victimes de violences commises par leur partenaire ou ex-partenaire, un niveau quasi stable par rapport à 2023 (+0,4 %).',
+    image: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=600&fit=crop&ixlib=rb-4.0.3',
+    date: '23 octobre 2025'
   },
   {
-    id: '4',
-    title: 'Modernisation des services administratifs',
-    excerpt: 'Mise en place de nouveaux services numériques pour faciliter les démarches des citoyens. Une dématérialisation progressive des procédures administratives.',
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=600&fit=crop',
-    date: '23 octobre 2025'
+    id: 'cooperation-internationale-police',
+    title: 'Renforcement de la coopération policière internationale',
+    excerpt: 'Signature d\'accords bilatéraux avec trois pays africains pour lutter contre la criminalité transfrontalière.',
+    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=600&fit=crop&ixlib=rb-4.0.3',
+    date: '18 octobre 2025'
   }
 ]
 

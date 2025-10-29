@@ -25,6 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
+      <meta name="apple-mobile-web-app-title" content="Ministère de l'intérieure" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

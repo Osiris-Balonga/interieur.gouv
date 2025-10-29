@@ -9,15 +9,30 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
+import { Menu, X, Home, Newspaper, Users, Building2, FileText, HelpCircle, Vote } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = () => setIsOpen(false);
+
   return (
     <>
       {/* Section Logo - Position normale */}
@@ -82,7 +97,20 @@ export function Navbar() {
                     <div className="grid w-[400px] gap-3 p-4">
                       <NavigationMenuLink asChild>
                         <Link
-                          href="/actualites/ministre"
+                          href="/actualites"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        >
+                          <div className="text-sm font-medium leading-none">
+                            Toutes les actualités
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            Voir toutes les actualités du ministère
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/actualites?category=actualites"
                           className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         >
                           <div className="text-sm font-medium leading-none">
@@ -95,11 +123,11 @@ export function Navbar() {
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
-                          href="/actualites/communiques"
+                          href="/actualites?category=communique"
                           className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         >
                           <div className="text-sm font-medium leading-none">
-                            Communiqué de presse
+                            Communiqués de presse
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                             Communications officielles du ministère
@@ -108,27 +136,14 @@ export function Navbar() {
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
                         <Link
-                          href="/actualites/dossiers-presse"
+                          href="/actualites?category=ceremonie"
                           className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         >
                           <div className="text-sm font-medium leading-none">
-                            Dossier de presse
+                            Cérémonies officielles
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Documents et ressources pour la presse
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          href="/actualites/grands-dossiers"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                        >
-                          <div className="text-sm font-medium leading-none">
-                            Grands dossiers
-                          </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Sujets majeurs et politiques publiques
+                            Événements et cérémonies du ministère
                           </p>
                         </Link>
                       </NavigationMenuLink>
@@ -236,16 +251,175 @@ export function Navbar() {
               </NavigationMenuList>
             </NavigationMenu>
 
-            {/* Toggle Switch à droite */}
-            <div className="flex items-center">
+            {/* Desktop Theme Toggle */}
+            <div className="hidden lg:flex items-center">
               <ThemeToggle />
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="lg:hidden">
-              <Button variant="ghost" size="sm">
-                Menu
-              </Button>
+            {/* Mobile Menu */}
+            <div className="lg:hidden flex items-center gap-2 ml-auto">
+              <ThemeToggle />
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="sm" className="p-2">
+                    <Menu className="h-5 w-5" />
+                    <span className="sr-only">Menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col">
+                  <SheetHeader>
+                    <SheetTitle className="text-left">Menu</SheetTitle>
+                  </SheetHeader>
+
+                  <div className="flex flex-col space-y-4 mt-6 overflow-y-auto flex-1 pr-2">
+                    {/* Accueil */}
+                    <SheetClose asChild>
+                      <Link
+                        href="/"
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+                        onClick={closeMenu}
+                      >
+                        <Home className="h-5 w-5 text-primary" />
+                        <span className="font-medium">Accueil</span>
+                      </Link>
+                    </SheetClose>
+
+                    <Separator />
+
+                    {/* Actualités */}
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3 p-3">
+                        <Newspaper className="h-5 w-5 text-primary" />
+                        <span className="font-medium">Actualités</span>
+                      </div>
+                      <div className="ml-8 space-y-1">
+                        <SheetClose asChild>
+                          <Link
+                            href="/actualites"
+                            className="block p-2 text-sm hover:bg-accent rounded transition-colors"
+                            onClick={closeMenu}
+                          >
+                            Toutes les actualités
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/actualites?category=actualites"
+                            className="block p-2 text-sm hover:bg-accent rounded transition-colors"
+                            onClick={closeMenu}
+                          >
+                            Actualités du ministre
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/actualites?category=communique"
+                            className="block p-2 text-sm hover:bg-accent rounded transition-colors"
+                            onClick={closeMenu}
+                          >
+                            Communiqués de presse
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/actualites?category=ceremonie"
+                            className="block p-2 text-sm hover:bg-accent rounded transition-colors"
+                            onClick={closeMenu}
+                          >
+                            Cérémonies officielles
+                          </Link>
+                        </SheetClose>
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    {/* Les ministres */}
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3 p-3">
+                        <Users className="h-5 w-5 text-primary" />
+                        <span className="font-medium">Les ministres</span>
+                      </div>
+                      <div className="ml-8 space-y-1">
+                        <SheetClose asChild>
+                          <Link
+                            href="/ministres/interieur"
+                            className="block p-2 text-sm hover:bg-accent rounded transition-colors"
+                            onClick={closeMenu}
+                          >
+                            Ministre de l'intérieur
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/ministres/delegue"
+                            className="block p-2 text-sm hover:bg-accent rounded transition-colors"
+                            onClick={closeMenu}
+                          >
+                            Ministre déléguée
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/ministres/historique"
+                            className="block p-2 text-sm hover:bg-accent rounded transition-colors"
+                            onClick={closeMenu}
+                          >
+                            Historique
+                          </Link>
+                        </SheetClose>
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    {/* Autres liens */}
+                    <SheetClose asChild>
+                      <Link
+                        href="/ministere"
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+                        onClick={closeMenu}
+                      >
+                        <Building2 className="h-5 w-5 text-primary" />
+                        <span className="font-medium">Le ministère</span>
+                      </Link>
+                    </SheetClose>
+
+                    <SheetClose asChild>
+                      <Link
+                        href="/services"
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+                        onClick={closeMenu}
+                      >
+                        <HelpCircle className="h-5 w-5 text-primary" />
+                        <span className="font-medium">A votre service</span>
+                      </Link>
+                    </SheetClose>
+
+                    <SheetClose asChild>
+                      <Link
+                        href="/documentation"
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+                        onClick={closeMenu}
+                      >
+                        <FileText className="h-5 w-5 text-primary" />
+                        <span className="font-medium">Documentation</span>
+                      </Link>
+                    </SheetClose>
+
+                    <SheetClose asChild>
+                      <Link
+                        href="/elections"
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+                        onClick={closeMenu}
+                      >
+                        <Vote className="h-5 w-5 text-primary" />
+                        <span className="font-medium">Elections</span>
+                      </Link>
+                    </SheetClose>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
